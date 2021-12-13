@@ -42,6 +42,8 @@ router.get("/user/:age", (req, res) => {
 
 //Post(send) data(new user) to the database
 router.post("/", (req, res) => {
+  console.log("post used")
+  console.log(req.body)
   User.create(req.body)
     .then((response) =>
       res
@@ -49,9 +51,10 @@ router.post("/", (req, res) => {
         .send({ success: true, responseStatus: 200, data: response })
     )
     .catch((err) => {
+      console.log("error post")
       const errorJson = {
         error: err.message,
-        status: 500,
+        responseStatus: 500,
         Comments: "Unable to create user",
       };
       res.send(errorJson);
